@@ -12,12 +12,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class PlainTest {
 
-    TestVariables vrb = new TestVariables();
-    String plain = vrb.getExpPlainResult();
-    String correctJsonFilePath1 = vrb.getCorrectJsonFilePath1();
-    String correctJsonFilePath2 = vrb.getCorrectJsonFilePath2();
-    String correctYamlFilePath1 = vrb.getCorrectYamlFilePath1();
-    String correctYamlFilePath2 = vrb.getCorrectYamlFilePath2();
+    private final TestVariables vrb = new TestVariables();
+    private final String plain = vrb.getExpPlainResult();
+    private final String correctJsonFilePath1 = vrb.getCorrectJsonFilePath1();
+    private final String correctJsonFilePath2 = vrb.getCorrectJsonFilePath2();
+    private final String correctYamlFilePath1 = vrb.getCorrectYamlFilePath1();
+    private final String correctYamlFilePath2 = vrb.getCorrectYamlFilePath2();
 
     @Test
     public void plainFormatterTest() {

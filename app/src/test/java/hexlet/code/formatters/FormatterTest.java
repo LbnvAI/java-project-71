@@ -12,14 +12,14 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class FormatterTest {
 
-    TestVariables vrb = new TestVariables();
-    String stylish = vrb.getExpStylishResult();
-    String plain = vrb.getExpPlainResult();
-    String json = vrb.getExpJsonResult();
-    String correctJsonFilePath1 = vrb.getCorrectJsonFilePath1();
-    String correctJsonFilePath2 = vrb.getCorrectJsonFilePath2();
-    String correctYamlFilePath1 = vrb.getCorrectYamlFilePath1();
-    String correctYamlFilePath2 = vrb.getCorrectYamlFilePath2();
+    private final TestVariables vrb = new TestVariables();
+    private final String stylish = vrb.getExpStylishResult();
+    private final String plain = vrb.getExpPlainResult();
+    private final String json = vrb.getExpJsonResult();
+    private final String correctJsonFilePath1 = vrb.getCorrectJsonFilePath1();
+    private final String correctJsonFilePath2 = vrb.getCorrectJsonFilePath2();
+    private final String correctYamlFilePath1 = vrb.getCorrectYamlFilePath1();
+    private final String correctYamlFilePath2 = vrb.getCorrectYamlFilePath2();
 
     @Test
     public void formatTest() {

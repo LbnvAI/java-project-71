@@ -10,19 +10,19 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
 
-    TestVariables vrb = new TestVariables();
-    Path correctJsonFilePath1 = Path.of(vrb.getCorrectJsonFilePath1());
-    Path correctJsonFilePath2 = Path.of(vrb.getCorrectJsonFilePath2());
-    Path correctYamlFilePath1 = Path.of(vrb.getCorrectYamlFilePath1());
-    Path correctYamlFilePath2 = Path.of(vrb.getCorrectYamlFilePath2());
-    Path emptyJsonFilePath = Path.of(vrb.getEmptyJsonFilePath());
-    Path emptyYamlFilePath = Path.of(vrb.getEmptyYamlFilePath());
-    Path invalidJsonFilePath = Path.of(vrb.getInvalidJsonFilePath());
-    Path invalidYamlFilePath = Path.of(vrb.getInvalidYamlFilePath());
-    Path invalidPath = Path.of(vrb.getInvalidPath());
-    Path noJsonYamlFilePath = Path.of(vrb.getNoJsonYamlFilePath());
-    String correctParseResult1 = vrb.getCorrectParseResult1();
-    String correctParseResult2 = vrb.getCorrectParseResult2();
+    private final TestVariables vrb = new TestVariables();
+    private final Path correctJsonFilePath1 = Path.of(vrb.getCorrectJsonFilePath1());
+    private final Path correctJsonFilePath2 = Path.of(vrb.getCorrectJsonFilePath2());
+    private final Path correctYamlFilePath1 = Path.of(vrb.getCorrectYamlFilePath1());
+    private final Path correctYamlFilePath2 = Path.of(vrb.getCorrectYamlFilePath2());
+    private final Path emptyJsonFilePath = Path.of(vrb.getEmptyJsonFilePath());
+    private final Path emptyYamlFilePath = Path.of(vrb.getEmptyYamlFilePath());
+    private final Path invalidJsonFilePath = Path.of(vrb.getInvalidJsonFilePath());
+    private final Path invalidYamlFilePath = Path.of(vrb.getInvalidYamlFilePath());
+    private final Path invalidPath = Path.of(vrb.getInvalidPath());
+    private final Path noJsonYamlFilePath = Path.of(vrb.getNoJsonYamlFilePath());
+    private final String correctParseResult1 = vrb.getCorrectParseResult1();
+    private final String correctParseResult2 = vrb.getCorrectParseResult2();
 
     @Test
     public void invalidInputTest() {

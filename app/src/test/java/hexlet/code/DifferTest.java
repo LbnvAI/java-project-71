@@ -8,20 +8,20 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class DifferTest {
 
-    TestVariables vrb = new TestVariables();
-    String stylish = vrb.getExpStylishResult();
-    String plain = vrb.getExpPlainResult();
-    String json = vrb.getExpJsonResult();
-    String correctJsonFilePath1 = vrb.getCorrectJsonFilePath1();
-    String correctJsonFilePath2 = vrb.getCorrectJsonFilePath2();
-    String correctYamlFilePath1 = vrb.getCorrectYamlFilePath1();
-    String correctYamlFilePath2 = vrb.getCorrectYamlFilePath2();
-    String emptyJsonFilePath = vrb.getEmptyJsonFilePath();
-    String emptyYamlFilePath = vrb.getEmptyYamlFilePath();
-    String invalidJsonFilePath = vrb.getInvalidJsonFilePath();
-    String invalidYamlFilePath = vrb.getInvalidYamlFilePath();
-    String invalidPath = vrb.getInvalidPath();
-    String noJsonYamlFilePath = vrb.getNoJsonYamlFilePath();
+    private final TestVariables vrb = new TestVariables();
+    private final String stylish = vrb.getExpStylishResult();
+    private final String plain = vrb.getExpPlainResult();
+    private final String json = vrb.getExpJsonResult();
+    private final String correctJsonFilePath1 = vrb.getCorrectJsonFilePath1();
+    private final String correctJsonFilePath2 = vrb.getCorrectJsonFilePath2();
+    private final String correctYamlFilePath1 = vrb.getCorrectYamlFilePath1();
+    private final String correctYamlFilePath2 = vrb.getCorrectYamlFilePath2();
+    private final String emptyJsonFilePath = vrb.getEmptyJsonFilePath();
+    private final String emptyYamlFilePath = vrb.getEmptyYamlFilePath();
+    private final String invalidJsonFilePath = vrb.getInvalidJsonFilePath();
+    private final String invalidYamlFilePath = vrb.getInvalidYamlFilePath();
+    private final String invalidPath = vrb.getInvalidPath();
+    private final String noJsonYamlFilePath = vrb.getNoJsonYamlFilePath();
 
     @Test
     public void correctFilesGenerateTest() {
