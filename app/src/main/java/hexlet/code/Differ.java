@@ -28,7 +28,7 @@ public class Differ {
         fileMap2.forEach((k, v) -> keySet.add(k));
         // Create difference Map
         keySet.forEach(key -> {
-            List<Object> differences = new ArrayList<>(3);
+            List<Object> differences = new ArrayList<>();
             differences.add("stub");
             if (fileMap1.containsKey(key) && fileMap2.containsKey(key)) {
                 differences.add(fileMap1.get(key));
