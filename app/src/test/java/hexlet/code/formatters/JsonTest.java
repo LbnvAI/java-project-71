@@ -2,21 +2,18 @@ package hexlet.code.formatters;
 
 import hexlet.code.Differ;
 import org.junit.jupiter.api.Test;
-
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonTest {
 
-    Path correctJsonFilePath1 = Path.of("src/test/resources/file1.json");
-    Path correctJsonFilePath2 = Path.of("src/test/resources/file2.json");
-    Path correctYamlFilePath1 = Path.of("src/test/resources/file1.yaml");
-    Path correctYamlFilePath2 = Path.of("src/test/resources/file2.yaml");
+    String correctJsonFilePath1 = "src/test/resources/file1.json";
+    String correctJsonFilePath2 = "src/test/resources/file2.json";
+    String correctYamlFilePath1 = "src/test/resources/file1.yaml";
+    String correctYamlFilePath2 = "src/test/resources/file2.yaml";
 
     String expResult = "{\"+chars2\":false,"
             + "\"+checked\":true,"
@@ -42,6 +39,7 @@ public class JsonTest {
 
     @Test
     public void jsonFormatterTest() {
+        // FULL ARGUMENT Differ.generate()
         try {
             // EMPTY INPUT MAP
             assertEquals("", Plain.getPlainResult(new HashMap<String, List<Object>>()));

@@ -3,8 +3,6 @@ package hexlet.code.formatters;
 import hexlet.code.Differ;
 import hexlet.code.Formatter;
 import org.junit.jupiter.api.Test;
-
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 
@@ -74,13 +72,27 @@ public class FormatterTest {
             + "\"-setting2\":200,"
             + "\"-setting3\":true}";
 
-    Path correctJsonFilePath1 = Path.of("src/test/resources/file1.json");
-    Path correctJsonFilePath2 = Path.of("src/test/resources/file2.json");
-    Path correctYamlFilePath1 = Path.of("src/test/resources/file1.yaml");
-    Path correctYamlFilePath2 = Path.of("src/test/resources/file2.yaml");
+    String correctJsonFilePath1 = "src/test/resources/file1.json";
+    String correctJsonFilePath2 = "src/test/resources/file2.json";
+    String correctYamlFilePath1 = "src/test/resources/file1.yaml";
+    String correctYamlFilePath2 = "src/test/resources/file2.yaml";
 
     @Test
     public void formatTest() {
+        // REDUCED ARGUMENT Differ.generate()
+        try {
+            // EMPTY INPUT MAP
+            assertEquals("", Formatter.getResult(new HashMap<String, List<Object>>(), "stylish"));
+            // CORRECT MAP
+            // !!! IF DIFFER TESTS FAIL MAP WILL BE INVALID !!!
+            assertEquals(expStylishResult, Differ.generate(correctJsonFilePath1, correctJsonFilePath2));
+            assertEquals(expStylishResult, Differ.generate(correctYamlFilePath1, correctYamlFilePath2));
+        } catch (Exception e) {
+            // If you have a mistake in paths to valid test files Parser.parse() throw NoSuchFileException
+            System.err.println("ERROR: jsonParsingTest : Check paths to correct json files in Parser.parse()");
+            fail();
+        }
+        // FULL ARGUMENT Differ.generate()
         try {
             // EMPTY INPUT MAP
             assertEquals("", Formatter.getResult(new HashMap<String, List<Object>>(), "stylish"));

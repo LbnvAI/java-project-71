@@ -2,8 +2,6 @@ package hexlet.code.formatters;
 
 import hexlet.code.Differ;
 import org.junit.jupiter.api.Test;
-
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,10 +10,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class StylishTest {
 
-    Path correctJsonFilePath1 = Path.of("src/test/resources/file1.json");
-    Path correctJsonFilePath2 = Path.of("src/test/resources/file2.json");
-    Path correctYamlFilePath1 = Path.of("src/test/resources/file1.yaml");
-    Path correctYamlFilePath2 = Path.of("src/test/resources/file2.yaml");
+    String correctJsonFilePath1 = "src/test/resources/file1.json";
+    String correctJsonFilePath2 = "src/test/resources/file2.json";
+    String correctYamlFilePath1 = "src/test/resources/file1.yaml";
+    String correctYamlFilePath2 = "src/test/resources/file2.yaml";
 
     String expResult = """
             {
@@ -46,6 +44,17 @@ public class StylishTest {
 
     @Test
     public void stylishFormatterTest() {
+        // REDUCED ARGUMENT Differ.generate()
+        try {
+            // CORRECT MAP
+            // !!! IF DIFFER TESTS FAIL MAP WILL BE INVALID !!!
+            assertEquals(expResult, Differ.generate(correctJsonFilePath1, correctJsonFilePath2));
+            assertEquals(expResult, Differ.generate(correctYamlFilePath1, correctYamlFilePath2));
+        } catch (Exception e) {
+            e.getMessage();
+            fail();
+        }
+        // FULL ARGUMENT Differ.generate()
         try {
             // EMPTY INPUT MAP
             assertEquals("", Stylish.getStylishResult(new HashMap<String, List<Object>>()));

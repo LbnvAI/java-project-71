@@ -17,7 +17,7 @@ public class Parser {
         } else if (filePath.toString().endsWith(".json")) {
             // Parsing JSON to Map
             return getParse(filePath, new ObjectMapper());
-        } else if (filePath.toString().endsWith(".yaml")) {
+        } else if (filePath.toString().endsWith(".yaml") || filePath.toString().endsWith(".yml")) {
             // Parsing YAML to Map
             return getParse(filePath, new YAMLMapper());
         } else {

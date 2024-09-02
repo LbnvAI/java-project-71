@@ -2,8 +2,6 @@ package hexlet.code.formatters;
 
 import hexlet.code.Differ;
 import org.junit.jupiter.api.Test;
-
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class PlainTest {
 
-    Path correctJsonFilePath1 = Path.of("src/test/resources/file1.json");
-    Path correctJsonFilePath2 = Path.of("src/test/resources/file2.json");
-    Path correctYamlFilePath1 = Path.of("src/test/resources/file1.yaml");
-    Path correctYamlFilePath2 = Path.of("src/test/resources/file2.yaml");
+    String correctJsonFilePath1 = "src/test/resources/file1.json";
+    String correctJsonFilePath2 = "src/test/resources/file2.json";
+    String correctYamlFilePath1 = "src/test/resources/file1.yaml";
+    String correctYamlFilePath2 = "src/test/resources/file2.yaml";
 
     String expResult = """
             Property 'chars2' was updated. From [complex value] to false

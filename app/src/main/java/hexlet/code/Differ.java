@@ -8,8 +8,16 @@ import java.util.HashSet;
 import java.util.TreeMap;
 
 public class Differ {
-    public static String generate(Path filePath1, Path filePath2, String format) throws Exception {
-        return Formatter.getResult(getDiffMap(Parser.parse(filePath1), Parser.parse(filePath2)), format);
+    public static String generate(String filePath1, String filePath2, String format) throws Exception {
+        Path path1 = Path.of(filePath1).toAbsolutePath();
+        Path path2 = Path.of(filePath2).toAbsolutePath();
+        return Formatter.getResult(getDiffMap(Parser.parse(path1), Parser.parse(path2)), format);
+    }
+
+    public static String generate(String filePath1, String filePath2) throws Exception {
+        Path path1 = Path.of(filePath1).toAbsolutePath();
+        Path path2 = Path.of(filePath2).toAbsolutePath();
+        return Formatter.getResult(getDiffMap(Parser.parse(path1), Parser.parse(path2)), "stylish");
     }
 
     private static Map<String, List<Object>> getDiffMap(Map<String, Object> fileMap1, Map<String, Object> fileMap2) {

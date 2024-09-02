@@ -1,26 +1,24 @@
 package hexlet.code;
 
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class DifferTest {
 
     // Paths to test files
-    Path correctJsonFilePath1 = Path.of("src/test/resources/file1.json");
-    Path correctJsonFilePath2 = Path.of("src/test/resources/file2.json");
-    Path invalidJsonFilePath = Path.of("src/test/resources/invalidFile.json");
-    Path emptyJsonFilePath = Path.of("src/test/resources/empty.json");
-    Path correctYamlFilePath1 = Path.of("src/test/resources/file1.yaml");
-    Path correctYamlFilePath2 = Path.of("src/test/resources/file2.yaml");
-    Path invalidYamlFilePath = Path.of("src/test/resources/invalidFile.yaml");
-    Path emptyYamlFilePath = Path.of("src/test/resources/empty.yaml");
-    Path noJsonYamlFilePath = Path.of("src/test/resources/noJsonYamlFile.txt");
-    Path invalidPath = Path.of("/src");
+    String correctJsonFilePath1 = "src/test/resources/file1.json";
+    String correctJsonFilePath2 = "src/test/resources/file2.json";
+    String invalidJsonFilePath = "src/test/resources/invalidFile.json";
+    String emptyJsonFilePath = "src/test/resources/empty.json";
+    String correctYamlFilePath1 = "src/test/resources/file1.yaml";
+    String correctYamlFilePath2 = "src/test/resources/file2.yaml";
+    String invalidYamlFilePath = "src/test/resources/invalidFile.yaml";
+    String emptyYamlFilePath = "src/test/resources/empty.yaml";
+    String noJsonYamlFilePath = "src/test/resources/noJsonYamlFile.txt";
+    String invalidPath = "/src";
 
     String expStylishDiff = """
             {
@@ -66,6 +64,18 @@ public class DifferTest {
     @Test
     public void correctFilesGenerateTest() {
         try {
+            // REDUCED ARGUMENT Differ.generate()
+            // JSON
+            assertEquals(expStylishDiff, Differ.generate(correctJsonFilePath1, correctJsonFilePath2));
+            // YAML
+            assertEquals(expStylishDiff, Differ.generate(correctYamlFilePath1, correctYamlFilePath2));
+            // NO/UNKNOWN FORMAT
+            assertEquals(expStylishDiff, Differ.generate(correctJsonFilePath1, correctJsonFilePath2));
+            assertEquals(expStylishDiff, Differ.generate(correctYamlFilePath1, correctYamlFilePath2));
+            // EMPTY FILES
+            assertEquals("", Differ.generate(emptyJsonFilePath, emptyJsonFilePath));
+            assertEquals("", Differ.generate(emptyYamlFilePath, emptyYamlFilePath));
+            // FULL ARGUMENT Differ.generate()
             // JSON
             assertEquals(expStylishDiff, Differ.generate(correctJsonFilePath1, correctJsonFilePath2, "stylish"));
             assertEquals(expPlainDiff, Differ.generate(correctJsonFilePath1, correctJsonFilePath2, "plain"));
@@ -91,6 +101,31 @@ public class DifferTest {
 
     @Test
     public void invalidFilesGenerateTest() {
+        // REDUCED ARGUMENT Differ.generate()
+        try {
+            Differ.generate(invalidJsonFilePath, invalidJsonFilePath);
+        } catch (Exception e) {
+            assertEquals(IOException.class, e.getClass());
+        }
+        // INVALID YAML
+        try {
+            Differ.generate(invalidYamlFilePath, invalidYamlFilePath);
+        } catch (Exception e) {
+            assertEquals(IOException.class, e.getClass());
+        }
+        // INVALID PATH
+        try {
+            Differ.generate(invalidPath, invalidPath);
+        } catch (Exception e) {
+            assertEquals(NoSuchFileException.class, e.getClass());
+        }
+        // INVALID FILE FORMAT (NOT JSON / YAML)
+        try {
+            Differ.generate(noJsonYamlFilePath, noJsonYamlFilePath);
+        } catch (Exception e) {
+            assertEquals(IllegalArgumentException.class, e.getClass());
+        }
+        // FULL ARGUMENT Differ.generate()
         // INVALID JSON
         try {
             Differ.generate(invalidJsonFilePath, invalidJsonFilePath, "stylish");

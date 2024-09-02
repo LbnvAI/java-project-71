@@ -4,8 +4,6 @@ import picocli.CommandLine;
 import picocli.CommandLine.Parameters;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;
-
-import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1",
@@ -22,9 +20,7 @@ class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        Path path1 = Path.of(filePath1).toAbsolutePath();
-        Path path2 = Path.of(filePath2).toAbsolutePath();
-        System.out.println(Differ.generate(path1, path2, format));
+        System.out.println(Differ.generate(filePath1, filePath2, format));
         return 0;
     }
 
