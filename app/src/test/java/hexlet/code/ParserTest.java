@@ -10,28 +10,19 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
 
-    // Paths to test files
-    Path correctJsonFilePath1 = Path.of("src/test/resources/file1.json");
-    Path correctJsonFilePath2 = Path.of("src/test/resources/file2.json");
-    Path invalidJsonFilePath = Path.of("src/test/resources/invalidFile.json");
-    Path emptyJsonFilePath = Path.of("src/test/resources/empty.json");
-    Path correctYamlFilePath1 = Path.of("src/test/resources/file1.yaml");
-    Path correctYamlFilePath2 = Path.of("src/test/resources/file2.yaml");
-    Path invalidYamlFilePath = Path.of("src/test/resources/invalidFile.yaml");
-    Path emptyYamlFilePath = Path.of("src/test/resources/empty.yaml");
-    Path noJsonYamlFilePath = Path.of("src/test/resources/noJsonYamlFile.txt");
-    Path invalidPath = Path.of("/src");
-
-    // Expected parsing results
-    String correctParseResult1 = "{setting2=200, key1=value1, setting3=true,"
-            + " default=null, chars2=[d, e, f], setting1=Some value,"
-            + " chars1=[a, b, c], numbers3=[3, 4, 5], numbers2=[2, 3, 4, 5],"
-            + " numbers1=[1, 2, 3, 4], checked=false, id=45}";
-    String correctParseResult2 = "{setting2=300, setting3=none, key2=value2,"
-            + " chars2=false, setting1=Another value, chars1=[a, b, c],"
-            + " numbers4=[4, 5, 6], numbers2=[22, 33, 44, 55], numbers1=[1, 2, 3, 4],"
-            + " obj1={nestedKey=value, isNested=true}, default=[value1, value2],"
-            + " checked=true, id=null}";
+    TestVariables vrb = new TestVariables();
+    Path correctJsonFilePath1 = Path.of(vrb.getCorrectJsonFilePath1());
+    Path correctJsonFilePath2 = Path.of(vrb.getCorrectJsonFilePath2());
+    Path correctYamlFilePath1 = Path.of(vrb.getCorrectYamlFilePath1());
+    Path correctYamlFilePath2 = Path.of(vrb.getCorrectYamlFilePath2());
+    Path emptyJsonFilePath = Path.of(vrb.getEmptyJsonFilePath());
+    Path emptyYamlFilePath = Path.of(vrb.getEmptyYamlFilePath());
+    Path invalidJsonFilePath = Path.of(vrb.getInvalidJsonFilePath());
+    Path invalidYamlFilePath = Path.of(vrb.getInvalidYamlFilePath());
+    Path invalidPath = Path.of(vrb.getInvalidPath());
+    Path noJsonYamlFilePath = Path.of(vrb.getNoJsonYamlFilePath());
+    String correctParseResult1 = vrb.getCorrectParseResult1();
+    String correctParseResult2 = vrb.getCorrectParseResult2();
 
     @Test
     public void invalidInputTest() {

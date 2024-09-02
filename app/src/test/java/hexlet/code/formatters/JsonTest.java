@@ -1,6 +1,7 @@
 package hexlet.code.formatters;
 
 import hexlet.code.Differ;
+import hexlet.code.TestVariables;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,32 +11,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonTest {
 
-    String correctJsonFilePath1 = "src/test/resources/file1.json";
-    String correctJsonFilePath2 = "src/test/resources/file2.json";
-    String correctYamlFilePath1 = "src/test/resources/file1.yaml";
-    String correctYamlFilePath2 = "src/test/resources/file2.yaml";
-
-    String expResult = "{\"+chars2\":false,"
-            + "\"+checked\":true,"
-            + "\"+default\":[\"value1\",\"value2\"],"
-            + "\"+id\":null,"
-            + "\"+key2\":\"value2\","
-            + "\"+numbers2\":[22,33,44,55],"
-            + "\"+numbers4\":[4,5,6],"
-            + "\"+obj1\":{\"nestedKey\":\"value\",\"isNested\":true},"
-            + "\"+setting1\":\"Another value\","
-            + "\"+setting2\":300,"
-            + "\"+setting3\":\"none\","
-            + "\"-chars2\":[\"d\",\"e\",\"f\"],"
-            + "\"-checked\":false,"
-            + "\"-default\":null,"
-            + "\"-id\":45,"
-            + "\"-key1\":\"value1\","
-            + "\"-numbers2\":[2,3,4,5],"
-            + "\"-numbers3\":[3,4,5],"
-            + "\"-setting1\":\"Some value\","
-            + "\"-setting2\":200,"
-            + "\"-setting3\":true}";
+    TestVariables vrb = new TestVariables();
+    String json = vrb.getExpJsonResult();
+    String correctJsonFilePath1 = vrb.getCorrectJsonFilePath1();
+    String correctJsonFilePath2 = vrb.getCorrectJsonFilePath2();
+    String correctYamlFilePath1 = vrb.getCorrectYamlFilePath1();
+    String correctYamlFilePath2 = vrb.getCorrectYamlFilePath2();
 
     @Test
     public void jsonFormatterTest() {
@@ -45,8 +26,8 @@ public class JsonTest {
             assertEquals("", Plain.getPlainResult(new HashMap<String, List<Object>>()));
             // CORRECT MAP
             // !!! IF DIFFER TESTS FAIL MAP WILL BE INVALID !!!
-            assertEquals(expResult, Differ.generate(correctJsonFilePath1, correctJsonFilePath2, "json"));
-            assertEquals(expResult, Differ.generate(correctYamlFilePath1, correctYamlFilePath2, "json"));
+            assertEquals(json, Differ.generate(correctJsonFilePath1, correctJsonFilePath2, "json"));
+            assertEquals(json, Differ.generate(correctYamlFilePath1, correctYamlFilePath2, "json"));
         } catch (Exception e) {
             e.getMessage();
             fail();
