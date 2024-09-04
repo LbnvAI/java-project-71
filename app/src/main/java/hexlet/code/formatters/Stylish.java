@@ -7,29 +7,25 @@ import java.util.Objects;
 
 public class Stylish {
 
-    private static final int LOWER_ALLOWED_LIST_SIZE = 2;
-    private static final int UPPER_ALLOWED_LIST_SIZE = 3;
-
-    public static String getStylishResult(Map<String, List<Object>> differencesMap) throws IllegalArgumentException {
+    public static String getStylishResult(Map<String, Map<String, Object>> differencesMap)
+            throws IllegalArgumentException {
         if (differencesMap.isEmpty()) {
             return "";
         }
         List<String> result = new ArrayList<>();
         result.add("{");
         differencesMap.forEach((k, v) -> {
-            if (v.size() == LOWER_ALLOWED_LIST_SIZE) {
-                result.add("  - " + k + ": " + v.get(1));
-            } else if (v.size() == UPPER_ALLOWED_LIST_SIZE) {
-                if (Objects.equals(v.get(1), v.get(2))) {
-                    result.add("    " + k + ": " + v.get(2));
+            if (v.containsKey("old") && v.containsKey("new")) {
+                if (Objects.equals(v.get("old"), v.get("new"))) {
+                    result.add("    " + k + ": " + v.get("old"));
                 } else {
-                    if (Objects.equals(v.get(1), "stub")) {
-                        result.add("  + " + k + ": " + v.get(2));
-                    } else {
-                        result.add("  - " + k + ": " + v.get(1));
-                        result.add("  + " + k + ": " + v.get(2));
-                    }
+                    result.add("  - " + k + ": " + v.get("old"));
+                    result.add("  + " + k + ": " + v.get("new"));
                 }
+            } else if (v.containsKey("old")) {
+                result.add("  - " + k + ": " + v.get("old"));
+            } else if (v.containsKey("new")) {
+                result.add("  + " + k + ": " + v.get("new"));
             } else {
                 throw new IllegalArgumentException("IllegalArgumentException: getStylishResult:"
                         + "invalid size of List<Object> size = 2 or 3 expected");

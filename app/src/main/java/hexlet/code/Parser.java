@@ -12,18 +12,21 @@ import java.util.Map;
 public class Parser {
     public static Map<String, Object> parse(Path filePath) throws Exception {
         if (!Files.exists(filePath)) {
-            // Check file existing
             throw new NoSuchFileException("NoSuchFileException: Check path to file or file existence.");
-        } else if (filePath.toString().endsWith(".json")) {
-            // Parsing JSON to Map
-            return getParse(filePath, new ObjectMapper());
-        } else if (filePath.toString().endsWith(".yaml") || filePath.toString().endsWith(".yml")) {
-            // Parsing YAML to Map
-            return getParse(filePath, new YAMLMapper());
-        } else {
-            // Do with other file formats
-            throw new IllegalArgumentException("IllegalArgumentException: Check file format. JSON or YAML expected");
         }
+        String fileName = filePath.toString();
+        return switch (fileName.substring(fileName.lastIndexOf("."))) {
+            case ".json" ->
+                // Parsing JSON to Map
+                    getParse(filePath, new ObjectMapper());
+            case ".yaml", ".yml" ->
+                // Parsing YAML to Map
+                    getParse(filePath, new YAMLMapper());
+            default ->
+                // Do with other file formats
+                    throw new IllegalArgumentException(
+                            "IllegalArgumentException: Check file format. JSON or YAML expected");
+        };
     }
 
     private static Map<String, Object> getParse(Path filePath, ObjectMapper mapper) throws IOException {

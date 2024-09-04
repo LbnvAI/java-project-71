@@ -7,30 +7,25 @@ import java.util.Objects;
 
 public class Plain {
 
-    private static final int LOWER_ALLOWED_LIST_SIZE = 2;
-    private static final int UPPER_ALLOWED_LIST_SIZE = 3;
-
-    public static String getPlainResult(Map<String, List<Object>> differencesMap) throws IllegalArgumentException {
+    public static String getPlainResult(Map<String, Map<String, Object>> differencesMap)
+            throws IllegalArgumentException {
         if (differencesMap.isEmpty()) {
             return "";
         }
         List<String> result = new ArrayList<>();
         differencesMap.forEach((k, v) -> {
-            if (v.size() != LOWER_ALLOWED_LIST_SIZE && v.size() != UPPER_ALLOWED_LIST_SIZE) {
-                throw new IllegalArgumentException("Invalid size of List<Object>."
-                        + " Expected 2 or 3, but was " + v.size());
-            }
-            if (v.size() == LOWER_ALLOWED_LIST_SIZE) {
-                result.add("Property '" + k + "' was removed");
-            } else {
-                if (Objects.equals(v.get(1), "stub")) {
-                    result.add("Property '" + k + "' was added with value: " + toStrByType(v.get(2)));
-                } else {
-                    if (!Objects.equals(v.get(1), v.get(2))) {
-                        result.add("Property '" + k + "' was updated."
-                                + " From " + toStrByType(v.get(1)) + " to " + toStrByType(v.get(2)));
-                    }
+            if (v.containsKey("old") && v.containsKey("new")) {
+                if (!Objects.equals(v.get("old"), v.get("new"))) {
+                    result.add("Property '" + k + "' was updated."
+                            + " From " + toStrByType(v.get("old")) + " to " + toStrByType(v.get("new")));
                 }
+            } else if (v.containsKey("old")) {
+                result.add("Property '" + k + "' was removed");
+            } else if (v.containsKey("new")) {
+                result.add("Property '" + k + "' was added with value " + toStrByType(v.get("new")));
+            } else {
+                throw new IllegalArgumentException("IllegalArgumentException: getStylishResult:"
+                        + "invalid size of List<Object> size = 2 or 3 expected");
             }
         });
         return String.join("\n", result);

@@ -2,118 +2,100 @@ package hexlet.code;
 
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class DifferTest {
 
-    private final TestVariables vrb = new TestVariables();
-    private final String stylish = vrb.getExpStylishResult();
-    private final String plain = vrb.getExpPlainResult();
-    private final String json = vrb.getExpJsonResult();
-    private final String correctJsonFilePath1 = vrb.getCorrectJsonFilePath1();
-    private final String correctJsonFilePath2 = vrb.getCorrectJsonFilePath2();
-    private final String correctYamlFilePath1 = vrb.getCorrectYamlFilePath1();
-    private final String correctYamlFilePath2 = vrb.getCorrectYamlFilePath2();
-    private final String emptyJsonFilePath = vrb.getEmptyJsonFilePath();
-    private final String emptyYamlFilePath = vrb.getEmptyYamlFilePath();
-    private final String invalidJsonFilePath = vrb.getInvalidJsonFilePath();
-    private final String invalidYamlFilePath = vrb.getInvalidYamlFilePath();
-    private final String invalidPath = vrb.getInvalidPath();
-    private final String noJsonYamlFilePath = vrb.getNoJsonYamlFilePath();
+    TestVariables vrb = new TestVariables();
 
     @Test
-    public void correctFilesGenerateTest() {
-
+    public void validInputTest() throws Exception {
         try {
-            // REDUCED ARGUMENT Differ.generate()
-            // JSON
-            assertEquals(stylish, Differ.generate(correctJsonFilePath1, correctJsonFilePath2));
-            // YAML
-            assertEquals(stylish, Differ.generate(correctYamlFilePath1, correctYamlFilePath2));
-            // NO/UNKNOWN FORMAT
-            assertEquals(stylish, Differ.generate(correctJsonFilePath1, correctJsonFilePath2));
-            assertEquals(stylish, Differ.generate(correctYamlFilePath1, correctYamlFilePath2));
-            // EMPTY FILES
-            assertEquals("", Differ.generate(emptyJsonFilePath, emptyJsonFilePath));
-            assertEquals("", Differ.generate(emptyYamlFilePath, emptyYamlFilePath));
-            // FULL ARGUMENT Differ.generate()
-            // JSON
-            assertEquals(stylish, Differ.generate(correctJsonFilePath1, correctJsonFilePath2, "stylish"));
-            assertEquals(plain, Differ.generate(correctJsonFilePath1, correctJsonFilePath2, "plain"));
-            assertEquals(json, Differ.generate(correctJsonFilePath1, correctJsonFilePath2, "json"));
-            // YAML
-            assertEquals(stylish, Differ.generate(correctYamlFilePath1, correctYamlFilePath2, "stylish"));
-            assertEquals(plain, Differ.generate(correctYamlFilePath1, correctYamlFilePath2, "plain"));
-            assertEquals(json, Differ.generate(correctYamlFilePath1, correctYamlFilePath2, "json"));
-            // NO/UNKNOWN FORMAT
-            assertEquals(stylish, Differ.generate(correctJsonFilePath1, correctJsonFilePath2, "asdf"));
-            assertEquals(stylish, Differ.generate(correctYamlFilePath1, correctYamlFilePath2, "asdf"));
-            // EMPTY FILES
-            // stylish
-            assertEquals("", Differ.generate(emptyJsonFilePath, emptyJsonFilePath, "stylish"));
-            assertEquals("", Differ.generate(emptyYamlFilePath, emptyYamlFilePath, "stylish"));
-            // Plain
-            assertEquals("", Differ.generate(emptyJsonFilePath, emptyJsonFilePath, "plain"));
-            assertEquals("", Differ.generate(emptyYamlFilePath, emptyYamlFilePath, "plain"));
+            // STYLISH FORMAT
+            var expected = Files.readString(Path.of(vrb.getExpStylishFilePath()));
+            // 2 ARGUMENT CALL
+            // json
+            assertEquals(expected, Differ.generate(
+                    vrb.getCorrectJsonFilePath1(),
+                    vrb.getCorrectJsonFilePath2()), "ERROR: validInputTest(): 2 json files, 2 arguments, stylish");
+            // yaml
+            assertEquals(expected, Differ.generate(
+                    vrb.getCorrectYamlFilePath1(),
+                    vrb.getCorrectYamlFilePath2()), "ERROR: validInputTest(): 2 yaml files, 2 arguments, stylish");
+            // 3 ARGUMENT CALL
+            // json
+            assertEquals(expected, Differ.generate(
+                    vrb.getCorrectJsonFilePath1(),
+                    vrb.getCorrectJsonFilePath2(),
+                    "stylish"), "ERROR: validInputTest(): 2 json files, 3 arguments, stylish");
+            // yaml
+            assertEquals(expected, Differ.generate(
+                    vrb.getCorrectYamlFilePath1(),
+                    vrb.getCorrectYamlFilePath2(),
+                    "stylish"), "ERROR: validInputTest(): 2 yaml files, 3 arguments, stylish");
+            // PLAIN FORMAT
+            expected = Files.readString(Path.of(vrb.getExpPlainFilePath()));
+            // json
+            assertEquals(expected, Differ.generate(
+                    vrb.getCorrectJsonFilePath1(),
+                    vrb.getCorrectJsonFilePath2(),
+                    "plain"), "ERROR: validInputTest(): 2 json files, 3 arguments, plain");
+            // yaml
+            assertEquals(expected, Differ.generate(
+                    vrb.getCorrectYamlFilePath1(),
+                    vrb.getCorrectYamlFilePath2(),
+                    "plain"), "ERROR: validInputTest(): 2 yaml files, 3 arguments, plain");
+            // JSON FORMAT
+            expected = Files.readString(Path.of(vrb.getExpJsonFilePath()));
+            // json
+            assertEquals(expected, Differ.generate(
+                    vrb.getCorrectJsonFilePath1(),
+                    vrb.getCorrectJsonFilePath2(),
+                    "json"), "ERROR: validInputTest(): 2 json files, 3 arguments, json");
+            // yaml
+            assertEquals(expected, Differ.generate(
+                    vrb.getCorrectYamlFilePath1(),
+                    vrb.getCorrectYamlFilePath2(),
+                    "json"), "ERROR: validInputTest(): 2 yaml files, 3 arguments, json");
+            // JSON FORMAT
         } catch (Exception e) {
-            // If you have a mistake in paths to valid test files Parser.parse() throw NoSuchFileException
-            System.err.println("ERROR: jsonParsingTest : Check paths to correct json files in Parser.parse()");
+            System.out.println(e.getMessage());
             fail();
         }
     }
 
     @Test
-    public void invalidFilesGenerateTest() {
-        // REDUCED ARGUMENT Differ.generate()
+    public void invalidInput() {
+        // INVALID FILE PATH, FILE NOT EXIST
         try {
-            Differ.generate(invalidJsonFilePath, invalidJsonFilePath);
-        } catch (Exception e) {
-            assertEquals(IOException.class, e.getClass());
-        }
-        // INVALID YAML
-        try {
-            Differ.generate(invalidYamlFilePath, invalidYamlFilePath);
-        } catch (Exception e) {
-            assertEquals(IOException.class, e.getClass());
-        }
-        // INVALID PATH
-        try {
-            Differ.generate(invalidPath, invalidPath);
+            Differ.generate(vrb.getInvalidPath(), vrb.getInvalidPath());
         } catch (Exception e) {
             assertEquals(NoSuchFileException.class, e.getClass());
         }
-        // INVALID FILE FORMAT (NOT JSON / YAML)
+        // INVALID FILE
         try {
-            Differ.generate(noJsonYamlFilePath, noJsonYamlFilePath);
-        } catch (Exception e) {
-            assertEquals(IllegalArgumentException.class, e.getClass());
-        }
-        // FULL ARGUMENT Differ.generate()
-        // INVALID JSON
-        try {
-            Differ.generate(invalidJsonFilePath, invalidJsonFilePath, "stylish");
+            Differ.generate(vrb.getInvalidYamlFilePath(), vrb.getInvalidJsonFilePath());
         } catch (Exception e) {
             assertEquals(IOException.class, e.getClass());
         }
-        // INVALID YAML
+        // FILE EXIST BUT IT IS NO JSON OR YAML
         try {
-            Differ.generate(invalidYamlFilePath, invalidYamlFilePath, "stylish");
-        } catch (Exception e) {
-            assertEquals(IOException.class, e.getClass());
-        }
-        // INVALID PATH
-        try {
-            Differ.generate(invalidPath, invalidPath, "stylish");
-        } catch (Exception e) {
-            assertEquals(NoSuchFileException.class, e.getClass());
-        }
-        // INVALID FILE FORMAT (NOT JSON / YAML)
-        try {
-            Differ.generate(noJsonYamlFilePath, noJsonYamlFilePath, "stylish");
+            Differ.generate(vrb.getNoJsonYamlFilePath(), vrb.getNoJsonYamlFilePath());
         } catch (Exception e) {
             assertEquals(IllegalArgumentException.class, e.getClass());
+        }
+        // VALID BUT EMPTY FILES
+        try {
+            assertEquals("", Differ.generate(vrb.getEmptyJsonFilePath(), vrb.getEmptyJsonFilePath()));
+            assertEquals("", Differ.generate(vrb.getEmptyYamlFilePath(), vrb.getEmptyYamlFilePath()));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            fail();
         }
     }
 }
