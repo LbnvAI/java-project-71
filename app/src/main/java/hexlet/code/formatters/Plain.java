@@ -22,7 +22,7 @@ public class Plain {
             } else if (v.containsKey("old")) {
                 result.add("Property '" + k + "' was removed");
             } else if (v.containsKey("new")) {
-                result.add("Property '" + k + "' was added with value " + toStrByType(v.get("new")));
+                result.add("Property '" + k + "' was added with value: " + toStrByType(v.get("new")));
             } else {
                 throw new IllegalArgumentException("IllegalArgumentException: getStylishResult:"
                         + "invalid size of List<Object> size = 2 or 3 expected");
