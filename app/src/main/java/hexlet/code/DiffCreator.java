@@ -26,7 +26,7 @@ public class DiffCreator {
                 diffMap.put(key, map);
             } else {
                 map.put("new", fileMap2.get(key));
-                diffMap.put(key,map);
+                diffMap.put(key, map);
             }
         });
         return diffMap;

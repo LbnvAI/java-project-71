@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class DifferTest {
 
-    TestVariables vrb = new TestVariables();
+    private final TestVariables vrb = new TestVariables();
 
     @Test
     public void validInputTest() throws Exception {
