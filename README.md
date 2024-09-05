@@ -6,10 +6,18 @@
 
 ### Difference between json/yaml files STYLISH format
 
+![Difference between json/yaml files STYLISH format](https://github.com/LbnvAI/java-project-71/blob/main/screenshots/stylish_json.jpg)
 
+![Difference between json/yaml files STYLISH format](https://github.com/LbnvAI/java-project-71/blob/main/screenshots/stylish_yaml.jpg)
 
 ### Difference between json/yaml files Plain format
 
+![Difference between json/yaml files Plain format](https://github.com/LbnvAI/java-project-71/blob/main/screenshots/plain_json.jpg)
 
+![Difference between json/yaml files Plain format](https://github.com/LbnvAI/java-project-71/blob/main/screenshots/plain_yaml.jpg)
 
 ### Difference between json/yaml files JSON format
+
+![Difference between json/yaml files JSON format](https://github.com/LbnvAI/java-project-71/blob/main/screenshots/json_json.jpg)
+
+![Difference between json/yaml files JSON format](https://github.com/LbnvAI/java-project-71/blob/main/screenshots/json_yaml.jpg)
